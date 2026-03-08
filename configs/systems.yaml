@@ -1,0 +1,224 @@
+# Linux Baseline Configuration
+# Define your systems here with numbering
+
+systems:
+  1:
+    name: "Baseline - Production"
+    hostname: "baseline-prod-01"
+    ip_address: "172.16.201.10"
+    netmask: "255.255.255.0"
+    gateway: "172.16.201.1"
+    dns_primary: "8.8.8.8"
+    dns_secondary: "8.8.4.4"
+    timezone: "UTC"
+    distro: "ubuntu"  # ubuntu, centos, debian, fedora
+    
+    network:
+      interface: "eth0"
+      dhcp: false
+    
+    users:
+      - name: "admin"
+        uid: 1001
+        groups: ["sudo", "wheel"]
+        create_home: true
+      - name: "appuser"
+        uid: 1002
+        groups: ["appgroup"]
+        create_home: true
+    
+    firewall:
+      enabled: true
+      rules:
+        - port: 22
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "SSH"
+        - port: 80
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "HTTP"
+        - port: 443
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "HTTPS"
+    
+    packages:
+      - "curl"
+      - "wget"
+      - "git"
+      - "vim"
+      - "htop"
+      - "net-tools"
+      - "build-essential"
+    
+    ssh:
+      permit_root_login: "no"
+      password_authentication: "no"
+      pubkey_authentication: "yes"
+      port: 22
+      max_auth_tries: 3
+      client_alive_interval: 300
+
+  2:
+    name: "Database Server - Production"
+    hostname: "db-prod-01"
+    ip_address: "172.16.201.20"
+    netmask: "255.255.255.0"
+    gateway: "172.16.201.1"
+    dns_primary: "8.8.8.8"
+    dns_secondary: "8.8.4.4"
+    timezone: "UTC"
+    distro: "ubuntu"
+    
+    network:
+      interface: "eth0"
+      dhcp: false
+    
+    users:
+      - name: "dbadmin"
+        uid: 1001
+        groups: ["sudo"]
+        create_home: true
+    
+    firewall:
+      enabled: true
+      rules:
+        - port: 22
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "SSH"
+        - port: 3306
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "MySQL"
+        - port: 5432
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "PostgreSQL"
+    
+    packages:
+      - "curl"
+      - "wget"
+      - "vim"
+      - "htop"
+      - "mysql-client"
+      - "postgresql-client"
+      - "monitoring-plugins"
+    
+    ssh:
+      permit_root_login: "no"
+      password_authentication: "no"
+      pubkey_authentication: "yes"
+      port: 22
+      max_auth_tries: 3
+      client_alive_interval: 300
+
+  3:
+    name: "Development Server - Staging"
+    hostname: "dev-staging-01"
+    ip_address: "172.16.201.30"
+    netmask: "255.255.255.0"
+    gateway: "172.16.201.1"
+    dns_primary: "8.8.8.8"
+    dns_secondary: "8.8.4.4"
+    timezone: "UTC"
+    distro: "ubuntu"
+    
+    network:
+      interface: "eth0"
+      dhcp: false
+    
+    users:
+      - name: "devuser"
+        uid: 1001
+        groups: ["sudo", "docker"]
+        create_home: true
+    
+    firewall:
+      enabled: true
+      rules:
+        - port: 22
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "SSH"
+        - port: 8080
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "App Port"
+    
+    packages:
+      - "curl"
+      - "wget"
+      - "git"
+      - "vim"
+      - "htop"
+      - "docker.io"
+      - "docker-compose"
+      - "nodejs"
+      - "npm"
+    
+    ssh:
+      permit_root_login: "no"
+      password_authentication: "no"
+      pubkey_authentication: "yes"
+      port: 22
+      max_auth_tries: 3
+      client_alive_interval: 300
+  4:
+    name: "Web Server - Production"
+    hostname: "web-prod-01"
+    ip_address: "172.16.201.10"
+    netmask: "255.255.255.0"
+    gateway: "172.16.201.1"
+    dns_primary: "8.8.8.8"
+    dns_secondary: "8.8.4.4"
+    timezone: "UTC"
+    distro: "ubuntu"  # ubuntu, centos, debian, fedora
+    
+    network:
+      interface: "eth0"
+      dhcp: false
+    
+    users:
+      - name: "admin"
+        uid: 1001
+        groups: ["sudo", "wheel"]
+        create_home: true
+      - name: "appuser"
+        uid: 1002
+        groups: ["appgroup"]
+        create_home: true
+    
+    firewall:
+      enabled: true
+      rules:
+        - port: 22
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "SSH"
+        - port: 80
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "HTTP"
+        - port: 443
+          protocol: "tcp"
+          action: "ACCEPT"
+          comment: "HTTPS"
+    
+    packages:
+      - "curl"
+      - "wget"
+      - "git"
+      - "vim"
+      - "htop"
+      - "net-tools"
+      - "build-essential"
+    
+    ssh:
+      permit_root_login: "no"
+      password_authentication: "no"
+      pubkey_authentication: "yes"
+      port: 22
+      max_auth_tries: 3
+      client_alive_interval: 300

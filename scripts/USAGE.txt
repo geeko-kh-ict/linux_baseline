@@ -1,0 +1,44 @@
+#!/bin/bash
+# Usage Guide for Linux Baseline Configuration Tool
+
+# DO THIS:
+# From the root of the linux_baseline directory, run:
+cd /path/to/linux_baseline
+sudo bash scripts/baseline-config.sh
+
+# OR from anywhere, specify the full path:
+sudo bash /path/to/linux_baseline/scripts/baseline-config.sh
+
+# DON'T DO THIS (wrong working directory):
+cd /path/to/linux_baseline/scripts
+bash baseline-config.sh    # ❌ This may cause path issues
+
+# DON'T DO THIS (wrong directory entirely):
+cd /path/to/linux_baseline/scripts/lib
+bash ../baseline-config.sh  # ❌ This causes path confusion
+
+# CORRECT DIRECTORY STRUCTURE:
+# linux_baseline/
+# ├── configs/
+# │   └── systems.yaml
+# └── scripts/
+#     ├── baseline-config.sh        ← Run from parent directory
+#     ├── deploy-remote.sh
+#     └── lib/
+#         ├── common.sh
+#         ├── network.sh
+#         ├── users.sh
+#         ├── firewall.sh
+#         ├── packages.sh
+#         └── ssh.sh
+
+# QUICK START:
+# 1. Make scripts executable:
+chmod +x linux_baseline/scripts/*.sh
+chmod +x linux_baseline/scripts/lib/*.sh
+
+# 2. From the linux_baseline root directory:
+cd linux_baseline
+sudo bash scripts/baseline-config.sh
+
+# That's it! The script will handle all path resolution automatically.
